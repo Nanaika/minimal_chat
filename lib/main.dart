@@ -1,10 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:minimal_chat_app/bloc/login_or_reg_bloc.dart';
+import 'package:minimal_chat_app/pages/login_page.dart';
+import 'package:minimal_chat_app/pages/register_page.dart';
 import 'package:minimal_chat_app/theme/theme.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   setLightSystemBars();
 
@@ -17,20 +28,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: '',
-      theme: lightTheme,
-      home: const HomePage(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (ctx) => LoginOrRegBloc()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: '',
+        theme: lightTheme,
+        home: BlocBuilder<LoginOrRegBloc, bool>(
+          builder: (BuildContext context, showReg) {
+            return showReg ? const RegisterPage() : const LoginPage();
+          },
+        ),
+      ),
     );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold();
   }
 }

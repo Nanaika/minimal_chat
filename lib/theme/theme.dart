@@ -1,9 +1,10 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+const fontFamily = 'oswald';
+
 final lightTheme = ThemeData(
+  fontFamily: fontFamily,
   colorScheme: ColorScheme.light(
     surface: Colors.grey.shade300,
     primary: Colors.grey.shade500,
@@ -14,6 +15,7 @@ final lightTheme = ThemeData(
 );
 
 final darkTheme = ThemeData(
+  fontFamily: fontFamily,
   colorScheme: ColorScheme.light(
     surface: Colors.grey.shade900,
     primary: Colors.grey.shade500,
