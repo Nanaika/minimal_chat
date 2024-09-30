@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minimal_chat_app/components/title.dart';
 
-import '../bloc/login_or_reg_bloc.dart';
-import '../components/constants.dart';
-import '../components/custom_icon.dart';
-import '../components/custom_text_button.dart';
-import '../components/custom_textfield.dart';
-import '../components/register_row.dart';
+import '../../../components/constants.dart';
+import '../../../components/custom_icon.dart';
+import '../../../components/custom_text_button.dart';
+import '../../../components/custom_text_field.dart';
+import '../../../components/register_row.dart';
+import '../../../components/title.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+class RegisterPageView extends StatelessWidget {
+  const RegisterPageView(
+      {super.key,
+      required this.emailController,
+      required this.passController,
+      this.onPress,
+      this.toggleLogOrReg,
+      required this.confPassController});
 
-  @override
-  State<RegisterPage> createState() => _RegisterPageState();
-}
-
-class _RegisterPageState extends State<RegisterPage> {
-  final mailController = TextEditingController();
-  final passController = TextEditingController();
-  final confirmPassController = TextEditingController();
+  final TextEditingController emailController;
+  final TextEditingController passController;
+  final TextEditingController confPassController;
+  final void Function()? onPress;
+  final void Function()? toggleLogOrReg;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 25,
             ),
             CustomTextField(
-              controller: mailController,
+              controller: emailController,
               hintText: emailHintText,
             ),
             const SizedBox(
@@ -56,24 +57,28 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 10,
             ),
             CustomTextField(
-              controller: confirmPassController,
+              controller: confPassController,
               hintText: confirmPasswordHintText,
               isObscured: true,
             ),
             const SizedBox(
               height: 50,
             ),
-            CustomTextButton(
-              title: 'REGISTER',
-              onPressed: () {},
+            Row(
+              children: [
+                Expanded(
+                  child: CustomTextButton(
+                    title: 'REGISTER',
+                    onPressed: onPress,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 20,
             ),
             RegisterRow(
-              onPress: () {
-                context.read<LoginOrRegBloc>().toggle();
-              },
+              onPress: toggleLogOrReg,
               firstText: 'Already have an account?',
               secondText: 'Login now',
             )

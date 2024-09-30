@@ -14,25 +14,22 @@ class CustomTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: defaultPaddingH),
-      child: SizedBox(
-        width: double.infinity,
-        child: TextButton(
-          onPressed: onPressed,
-          style: ButtonStyle(
-            padding: WidgetStateProperty.all(
-              const EdgeInsets.symmetric(vertical: defContentPaddingH),
-            ),
-            shape: WidgetStateProperty.all(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(defBorderRadius),
-              ),
-            ),
-            side: WidgetStateProperty.all(
-              BorderSide(color: Theme.of(context).colorScheme.tertiary),
+      child: TextButton(
+        onPressed: onPressed,
+        style: ButtonStyle(
+          padding: WidgetStateProperty.all(
+            const EdgeInsets.symmetric(vertical: defContentPaddingH),
+          ),
+          shape: WidgetStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(defBorderRadius),
             ),
           ),
-          child: Text(title),
+          side: WidgetStateProperty.all(
+            BorderSide(color: Theme.of(context).colorScheme.tertiary),
+          ),
         ),
+        child: Text(title),
       ),
     );
   }

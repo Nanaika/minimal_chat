@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minimal_chat_app/bloc/login_or_reg_bloc.dart';
 import 'package:minimal_chat_app/components/title.dart';
-import 'package:minimal_chat_app/main.dart';
 
-import '../components/constants.dart';
-import '../components/custom_icon.dart';
-import '../components/custom_text_button.dart';
-import '../components/custom_textfield.dart';
-import '../components/register_row.dart';
+import '../../components/constants.dart';
+import '../../components/custom_icon.dart';
+import '../../components/custom_text_button.dart';
+import '../../components/custom_text_field.dart';
+import '../../components/register_row.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginPageView extends StatelessWidget {
+  const LoginPageView(
+      {super.key,
+      required this.emailController,
+      required this.passController,
+      this.onPress, this.toggleLogOrReg});
 
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  final mailController = TextEditingController();
-  final passController = TextEditingController();
+  final TextEditingController emailController;
+  final TextEditingController passController;
+  final void Function()? onPress;
+  final void Function()? toggleLogOrReg;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 25,
             ),
             CustomTextField(
-              controller: mailController,
+              controller: emailController,
               hintText: emailHintText,
             ),
             const SizedBox(
@@ -55,17 +53,21 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               height: 50,
             ),
-            CustomTextButton(
-              title: 'LOG IN',
-              onPressed: () {},
+            Row(
+              children: [
+                Expanded(
+                  child: CustomTextButton(
+                    title: 'LOG IN',
+                    onPressed: onPress,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 20,
             ),
             RegisterRow(
-              onPress: () {
-                context.read<LoginOrRegBloc>().toggle();
-              },
+              onPress: toggleLogOrReg,
               firstText: 'Not a member?',
               secondText: 'Register now',
             )

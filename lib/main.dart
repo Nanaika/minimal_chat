@@ -2,9 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:minimal_chat_app/bloc/auth_bloc.dart';
 import 'package:minimal_chat_app/bloc/login_or_reg_bloc.dart';
-import 'package:minimal_chat_app/pages/login_page.dart';
-import 'package:minimal_chat_app/pages/register_page.dart';
+import 'package:minimal_chat_app/pages/login_or_reg_page.dart';
 import 'package:minimal_chat_app/theme/theme.dart';
 
 import 'firebase_options.dart';
@@ -31,14 +31,17 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (ctx) => LoginOrRegBloc()),
+        BlocProvider(create: (ctx) => AuthBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: '',
         theme: lightTheme,
         home: BlocBuilder<LoginOrRegBloc, bool>(
-          builder: (BuildContext context, showReg) {
-            return showReg ? const RegisterPage() : const LoginPage();
+          builder: (BuildContext context, showLogin) {
+            return LoginOrRegPage(
+              showLogin: showLogin,
+            );
           },
         ),
       ),
