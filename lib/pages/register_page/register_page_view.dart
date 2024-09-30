@@ -44,6 +44,7 @@ class RegisterPageView extends StatelessWidget {
             CustomTextField(
               controller: emailController,
               hintText: emailHintText,
+              textInputType: TextInputType.emailAddress,
             ),
             const SizedBox(
               height: 10,
@@ -52,6 +53,7 @@ class RegisterPageView extends StatelessWidget {
               controller: passController,
               hintText: passwordHintText,
               isObscured: true,
+              textInputType: TextInputType.visiblePassword,
             ),
             const SizedBox(
               height: 10,
@@ -60,6 +62,7 @@ class RegisterPageView extends StatelessWidget {
               controller: confPassController,
               hintText: confirmPasswordHintText,
               isObscured: true,
+              textInputType: TextInputType.visiblePassword,
             ),
             const SizedBox(
               height: 50,

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_chat_app/bloc/auth_bloc.dart';
 import 'package:minimal_chat_app/bloc/login_or_reg_bloc.dart';
-import 'package:minimal_chat_app/pages/login_or_reg_page.dart';
+import 'package:minimal_chat_app/pages/auth_gates.dart';
 import 'package:minimal_chat_app/theme/theme.dart';
 
 import 'firebase_options.dart';
@@ -36,14 +36,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: '',
-        theme: lightTheme,
-        home: BlocBuilder<LoginOrRegBloc, bool>(
-          builder: (BuildContext context, showLogin) {
-            return LoginOrRegPage(
-              showLogin: showLogin,
-            );
-          },
-        ),
+        theme: darkTheme,
+        home: const AuthGates(),
       ),
     );
   }

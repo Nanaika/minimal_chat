@@ -57,6 +57,7 @@ class LandscapeLoginPageView extends StatelessWidget {
                   CustomTextField(
                     controller: emailController,
                     hintText: emailHintText,
+                    textInputType: TextInputType.emailAddress,
                   ),
                   const SizedBox(
                     height: 10,
@@ -65,6 +66,7 @@ class LandscapeLoginPageView extends StatelessWidget {
                     controller: passController,
                     hintText: passwordHintText,
                     isObscured: true,
+                    textInputType: TextInputType.visiblePassword,
                   ),
                   const SizedBox(
                     height: 25,

@@ -11,6 +11,7 @@ final lightTheme = ThemeData(
     secondary: Colors.grey.shade200,
     tertiary: Colors.white,
     inversePrimary: Colors.grey.shade900,
+    onErrorContainer: Colors.white,
   ),
 );
 
@@ -22,6 +23,7 @@ final darkTheme = ThemeData(
     secondary: Colors.grey.shade800,
     tertiary: Colors.black,
     inversePrimary: Colors.grey.shade100,
+    onErrorContainer: Colors.white,
   ),
 );
 
@@ -31,8 +33,7 @@ void setLightSystemBars() {
       statusBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: Color.fromARGB(1, 1, 1, 1),
       systemNavigationBarDividerColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.dark
-  ));
+      systemNavigationBarIconBrightness: Brightness.dark));
 }
 
 void setDarkSystemBars() {
@@ -41,6 +42,5 @@ void setDarkSystemBars() {
       statusBarIconBrightness: Brightness.light,
       systemNavigationBarColor: Color.fromARGB(1, 1, 1, 1),
       systemNavigationBarDividerColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.light
-  ));
+      systemNavigationBarIconBrightness: Brightness.light));
 }

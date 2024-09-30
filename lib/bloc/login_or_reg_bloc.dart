@@ -1,13 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginOrRegBloc extends Cubit<bool> {
-  LoginOrRegBloc() : super(false);
+  LoginOrRegBloc() : super(true);
 
-  bool showReg = false;
+  bool showLogin = true;
 
   void toggle() {
-    showReg = !showReg;
-    emit(showReg);
+    showLogin = !showLogin;
+    emit(showLogin);
   }
 
 }
