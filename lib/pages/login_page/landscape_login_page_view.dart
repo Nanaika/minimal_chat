@@ -31,21 +31,21 @@ class LandscapeLoginPageView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CustomTitle(
-                    title: 'Welcome Back, we missed you!',
+                    title: welcomeText,
                   ),
                   const SizedBox(
                     height: 30,
                   ),
                   const CustomIcon(
-                    icon: Icons.chat_rounded,
+                    icon: appIcon,
                   ),
                   const SizedBox(
                     height: 25,
                   ),
                   RegisterRow(
                     onPress: toggleLogOrReg,
-                    firstText: 'Not a member?',
-                    secondText: 'Register now',
+                    firstText: notMemberText,
+                    secondText: registerNowText,
                   )
                 ],
               ),
@@ -75,7 +75,7 @@ class LandscapeLoginPageView extends StatelessWidget {
                     children: [
                       Expanded(
                         child: CustomTextButton(
-                          title: 'LOG IN',
+                          title: logInCapsText,
                           onPressed: onPress,
                         ),
                       ),

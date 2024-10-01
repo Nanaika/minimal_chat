@@ -30,13 +30,13 @@ class RegisterPageView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const CustomIcon(
-              icon: Icons.chat_rounded,
+              icon: appIcon,
             ),
             const SizedBox(
               height: 30,
             ),
             const CustomTitle(
-              title: 'Lets create an account for you',
+              title: createAccountText,
             ),
             const SizedBox(
               height: 25,
@@ -71,7 +71,7 @@ class RegisterPageView extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomTextButton(
-                    title: 'REGISTER',
+                    title: registerCapsText,
                     onPressed: onPress,
                   ),
                 ),
@@ -82,8 +82,8 @@ class RegisterPageView extends StatelessWidget {
             ),
             RegisterRow(
               onPress: toggleLogOrReg,
-              firstText: 'Already have an account?',
-              secondText: 'Login now',
+              firstText: alreadyHaveAccountText,
+              secondText: logInNowText,
             )
           ],
         ),

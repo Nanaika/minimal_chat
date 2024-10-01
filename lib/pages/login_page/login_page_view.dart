@@ -8,11 +8,13 @@ import '../../components/custom_text_field.dart';
 import '../../components/register_row.dart';
 
 class LoginPageView extends StatelessWidget {
-  const LoginPageView(
-      {super.key,
-      required this.emailController,
-      required this.passController,
-      this.onPress, this.toggleLogOrReg});
+  const LoginPageView({
+    super.key,
+    required this.emailController,
+    required this.passController,
+    this.onPress,
+    this.toggleLogOrReg,
+  });
 
   final TextEditingController emailController;
   final TextEditingController passController;
@@ -27,13 +29,13 @@ class LoginPageView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const CustomIcon(
-              icon: Icons.chat_rounded,
+              icon: appIcon,
             ),
             const SizedBox(
               height: 30,
             ),
             const CustomTitle(
-              title: 'Welcome Back, we missed you!',
+              title: welcomeText,
             ),
             const SizedBox(
               height: 25,
@@ -59,7 +61,7 @@ class LoginPageView extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomTextButton(
-                    title: 'LOG IN',
+                    title: logInCapsText,
                     onPressed: onPress,
                   ),
                 ),
@@ -70,8 +72,8 @@ class LoginPageView extends StatelessWidget {
             ),
             RegisterRow(
               onPress: toggleLogOrReg,
-              firstText: 'Not a member?',
-              secondText: 'Register now',
+              firstText: notMemberText,
+              secondText: registerNowText,
             )
           ],
         ),

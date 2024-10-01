@@ -13,7 +13,8 @@ class LandscapeRegisterPageView extends StatelessWidget {
       this.onPress,
       required this.emailController,
       required this.passController,
-      this.toggleLogOrReg, required this.confPassController});
+      this.toggleLogOrReg,
+      required this.confPassController});
 
   final TextEditingController emailController;
   final TextEditingController passController;
@@ -33,21 +34,21 @@ class LandscapeRegisterPageView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CustomTitle(
-                    title: 'Lets create an account for you',
+                    title: createAccountText,
                   ),
                   const SizedBox(
                     height: 30,
                   ),
                   const CustomIcon(
-                    icon: Icons.chat_rounded,
+                    icon: appIcon,
                   ),
                   const SizedBox(
                     height: 25,
                   ),
                   RegisterRow(
                     onPress: toggleLogOrReg,
-                    firstText: 'Already have an account?',
-                    secondText: 'Login now',
+                    firstText: alreadyHaveAccountText,
+                    secondText: logInNowText,
                   )
                 ],
               ),
@@ -86,7 +87,7 @@ class LandscapeRegisterPageView extends StatelessWidget {
                     children: [
                       Expanded(
                         child: CustomTextButton(
-                          title: 'REGISTER',
+                          title: registerCapsText,
                           onPressed: onPress,
                         ),
                       ),
