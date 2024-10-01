@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:minimal_chat_app/components/constants.dart';
 
 class AuthBloc extends Cubit<AuthState> {
   AuthBloc() : super(AuthLoading()) {
@@ -19,7 +20,18 @@ class AuthBloc extends Cubit<AuthState> {
           email: email, password: pass);
       emit(AuthSuccess());
     } on FirebaseAuthException catch (e) {
-      emit(AuthError(message: e.message!));
+      emit(AuthError(message: e.message ?? noErrorMessageText));
+    }
+  }
+
+  Future<void> registerWithEmailAndPass(String email, String pass) async {
+    emit(AuthLoading());
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: pass);
+      emit(AuthSuccess());
+    } on FirebaseAuthException catch (e) {
+      emit(AuthError(message: e.message ?? noErrorMessageText));
     }
   }
 

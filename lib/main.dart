@@ -4,10 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_chat_app/bloc/auth_bloc.dart';
 import 'package:minimal_chat_app/bloc/login_or_reg_bloc.dart';
+import 'package:minimal_chat_app/bloc/theme_bloc.dart';
+import 'package:minimal_chat_app/components/constants.dart';
 import 'package:minimal_chat_app/pages/auth_gates.dart';
-import 'package:minimal_chat_app/theme/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,14 +20,16 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  setLightSystemBars();
+  final sp = await SharedPreferences.getInstance();
+  final isDark = sp.getBool(spIsDarkKey) ?? false;
 
-  runApp(const MyApp());
+  runApp(MyApp(isDark: isDark,));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.isDark});
 
+  final bool isDark;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -32,12 +37,16 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (ctx) => LoginOrRegBloc()),
         BlocProvider(create: (ctx) => AuthBloc()),
+        BlocProvider(create: (ctx) => ThemeBloc(isDark)),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: '',
-        theme: darkTheme,
-        home: const AuthGates(),
+      child: BlocBuilder<ThemeBloc, ThemeData>(
+        builder: (BuildContext context, theme) { return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: '',
+          theme: theme,
+          home: const AuthGates(),
+        ); },
+
       ),
     );
   }

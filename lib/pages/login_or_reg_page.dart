@@ -6,6 +6,7 @@ import 'package:minimal_chat_app/components/constants.dart';
 import 'package:minimal_chat_app/pages/register_page/register_page.dart';
 
 import '../bloc/login_or_reg_bloc.dart';
+import '../components/utils.dart';
 import 'login_page/login_page.dart';
 
 class LoginOrRegPage extends StatefulWidget {
@@ -30,15 +31,7 @@ class _LoginOrRegPageState extends State<LoginOrRegPage> {
     return widget.showLogin
         ? BlocListener<AuthBloc, AuthState>(
             listener: (BuildContext context, state) {
-              if (state is AuthError) {
-                showSnackBar(context, state.message);
-              }
-              if (state is AuthLoading) {
-                showLoadingDialog(context);
-              } else {
-                Navigator.of(context).pop();
-              }
-              print('STATE fromLISTEN ----------------------  ${state}');
+              checkState(state, context);
             },
             child: LoginPage(
               emailController: loginEmailController,
@@ -60,55 +53,51 @@ class _LoginOrRegPageState extends State<LoginOrRegPage> {
               },
             ),
           )
-        : RegisterPage(
-            emailController: regEmailController,
-            passController: regPassController,
-            confPassController: regConfPassController,
-            onPress: () {},
-            toggleLogOrReg: () {
-              context.read<LoginOrRegBloc>().toggle();
+        : BlocListener<AuthBloc, AuthState>(
+            listener: (BuildContext context, state) {
+              checkState(state, context);
             },
+            child: RegisterPage(
+              emailController: regEmailController,
+              passController: regPassController,
+              confPassController: regConfPassController,
+              onPress: () {
+                if (regEmailController.text.isEmpty) {
+                  showSnackBar(context, emailEmptyText);
+                  return;
+                }
+                if (regPassController.text.isEmpty) {
+                  showSnackBar(context, passwordEmptyText);
+                  return;
+                }
+                if (regConfPassController.text.isEmpty) {
+                  showSnackBar(context, confPasswordEmptyText);
+                  return;
+                }
+                if (regConfPassController.text != regPassController.text) {
+                  showSnackBar(context, confPasswordNotMatchText);
+                  return;
+                }
+                context.read<AuthBloc>().registerWithEmailAndPass(
+                    regEmailController.text, regPassController.text);
+              },
+              toggleLogOrReg: () {
+                context.read<LoginOrRegBloc>().toggle();
+              },
+            ),
           );
+  }
+
+  void checkState(AuthState state, BuildContext context) {
+    if (state is AuthError) {
+      showSnackBar(context, state.message);
+    }
+    if (state is AuthLoading) {
+      showLoadingDialog(context);
+    } else {
+      Navigator.of(context).pop();
+    }
   }
 }
 
-//TODO 1: reg page all  2: loading dialog
-void showSnackBar(BuildContext context, String message) {
-  final snackBar = SnackBar(
-    // behavior: SnackBarBehavior.floating,
-    content: Text(
-      message,
-      style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
-    ),
-    duration: const Duration(seconds: 5),
-    backgroundColor: Colors.redAccent,
-    action: SnackBarAction(
-      label: gotItText,
-      textColor: Theme.of(context).colorScheme.onErrorContainer,
-      onPressed: () {
-        // Perform some action
-      },
-    ),
-  );
-  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-}
-
-void showLoadingDialog(BuildContext context) {
-  showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(defBorderRadius),
-            ),
-          ),
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          // contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-          content: CupertinoActivityIndicator(
-            color: Theme.of(context).colorScheme.inversePrimary,
-          ),
-        );
-      });
-}
+//TODO 1: reg page all
