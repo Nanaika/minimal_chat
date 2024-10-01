@@ -61,7 +61,7 @@ class LoginPageView extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomTextButton(
-                    title: logInCapsText,
+                    title: logInText.toUpperCase(),
                     onPressed: onPress,
                   ),
                 ),

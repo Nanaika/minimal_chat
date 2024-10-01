@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_chat_app/bloc/auth_bloc.dart';
+import 'package:minimal_chat_app/bloc/chat_bloc.dart';
 import 'package:minimal_chat_app/bloc/login_or_reg_bloc.dart';
 import 'package:minimal_chat_app/bloc/theme_bloc.dart';
 import 'package:minimal_chat_app/components/constants.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (ctx) => LoginOrRegBloc()),
         BlocProvider(create: (ctx) => AuthBloc()),
         BlocProvider(create: (ctx) => ThemeBloc(isDark)),
+        BlocProvider(create: (ctx) => ChatBloc()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeData>(
         builder: (BuildContext context, theme) { return MaterialApp(

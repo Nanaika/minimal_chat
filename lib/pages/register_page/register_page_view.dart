@@ -71,7 +71,7 @@ class RegisterPageView extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomTextButton(
-                    title: registerCapsText,
+                    title: registerText.toUpperCase(),
                     onPressed: onPress,
                   ),
                 ),

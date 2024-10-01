@@ -19,13 +19,16 @@ const emailHintText = 'email';
 const passwordHintText = 'password';
 const confirmPasswordHintText = 'confirm password';
 const createAccountText = 'Lets create an account for you';
-const registerCapsText = 'REGISTER';
+const registerText = 'Register';
 const welcomeText = 'Welcome Back, we missed you!';
 const notMemberText = 'Not a member?';
 const registerNowText = 'Register now';
-const logInCapsText = 'LOG IN';
+const logInText = 'Log in';
 const logInNowText = 'Login now';
 const alreadyHaveAccountText = 'Already have an account?';
+const homeText = 'Home';
+const settingsText = 'Settings';
+const logOutText = 'Log out';
 
 
 const gotItText = 'Close';

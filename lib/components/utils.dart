@@ -43,3 +43,23 @@ void showSnackBar(BuildContext context, String message) {
   );
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
+
+Route createRoute(Widget page) {
+  return PageRouteBuilder(transitionsBuilder: (ctx, anim1, anim2, widget) {
+    const curve = Curves.easeInOut;
+    final slideTween = Tween<Offset>(
+        begin: const Offset(1.0, 0.0), end: Offset.zero
+    ).chain(CurveTween(curve: curve));
+
+    final fadeTween = Tween<double>(
+        begin: 0.0, end: 1.0
+    ).chain(CurveTween(curve: curve));
+
+    final offsetAnim = anim1.drive(slideTween);
+    final fadeAnim = anim1.drive(fadeTween);
+
+    return SlideTransition(position: offsetAnim, child: FadeTransition(opacity: fadeAnim, child: widget,),);
+  }, pageBuilder: (ctx, anim1, anim2) {
+    return page;
+  });
+}
