@@ -1,0 +1,3 @@
+enum CollectionType {
+  users
+}

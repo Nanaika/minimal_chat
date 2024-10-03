@@ -19,15 +19,12 @@ class LoginOrRegPage extends StatefulWidget {
 }
 
 class _LoginOrRegPageState extends State<LoginOrRegPage> {
-
-
   final loginEmailController = TextEditingController();
   final loginPassController = TextEditingController();
 
   final regEmailController = TextEditingController();
   final regPassController = TextEditingController();
   final regConfPassController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +37,6 @@ class _LoginOrRegPageState extends State<LoginOrRegPage> {
               emailController: loginEmailController,
               passController: loginPassController,
               onPress: () async {
-
                 if (loginEmailController.text.isEmpty) {
                   showSnackBar(context, emailEmptyText);
                   return;
@@ -49,7 +45,6 @@ class _LoginOrRegPageState extends State<LoginOrRegPage> {
                   showSnackBar(context, passwordEmptyText);
                   return;
                 }
-                FocusScope.of(context).unfocus();
                 context.read<AuthBloc>().signInWithEmailPass(
                     loginEmailController.text, loginPassController.text);
               },
@@ -67,7 +62,6 @@ class _LoginOrRegPageState extends State<LoginOrRegPage> {
               passController: regPassController,
               confPassController: regConfPassController,
               onPress: () {
-
                 if (regEmailController.text.isEmpty) {
                   showSnackBar(context, emailEmptyText);
                   return;
@@ -84,7 +78,6 @@ class _LoginOrRegPageState extends State<LoginOrRegPage> {
                   showSnackBar(context, confPasswordNotMatchText);
                   return;
                 }
-                FocusScope.of(context).unfocus();
                 context.read<AuthBloc>().registerWithEmailAndPass(
                     regEmailController.text, regPassController.text);
               },
@@ -101,9 +94,7 @@ class _LoginOrRegPageState extends State<LoginOrRegPage> {
     }
     if (state is AuthLoading) {
       showLoadingDialog(context);
-    } else {
-      Navigator.of(context).pop();
     }
+
   }
 }
-

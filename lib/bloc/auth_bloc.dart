@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:minimal_chat_app/bloc/collection_type.dart';
+import 'package:minimal_chat_app/bloc/model/user.dart';
 import 'package:minimal_chat_app/components/constants.dart';
 
 class AuthBloc extends Cubit<AuthState> {
@@ -12,6 +15,7 @@ class AuthBloc extends Cubit<AuthState> {
   }
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   Future<void> signInWithEmailPass(String email, pass) async {
     emit(AuthLoading());
@@ -27,8 +31,10 @@ class AuthBloc extends Cubit<AuthState> {
   Future<void> registerWithEmailAndPass(String email, String pass) async {
     emit(AuthLoading());
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      final credentials = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: pass);
+      final user = ChatUser(credentials.user!.email!, credentials.user!.uid);
+      await _firebaseFirestore.collection(CollectionType.users.name).add(user.toJson());
       emit(AuthSuccess());
     } on FirebaseAuthException catch (e) {
       emit(AuthError(message: e.message ?? noErrorMessageText));

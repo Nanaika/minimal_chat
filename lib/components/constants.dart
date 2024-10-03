@@ -29,6 +29,9 @@ const alreadyHaveAccountText = 'Already have an account?';
 const homeText = 'Home';
 const settingsText = 'Settings';
 const logOutText = 'Log out';
+const chatsText = 'Chats';
+const searchText = 'search';
+const userText = 'user';
 
 
 const gotItText = 'Close';
@@ -37,3 +40,5 @@ const emailEmptyText = 'Please fill in the email field.';
 const passwordEmptyText = 'Please fill in the password field.';
 const confPasswordEmptyText = 'Please fill in the password confirmation field.';
 const confPasswordNotMatchText = 'Password confirmation does not match the password.';
+
+
