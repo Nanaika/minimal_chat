@@ -1,3 +1,3 @@
 enum CollectionType {
-  users
+  users, chatrooms, messages
 }

@@ -1,11 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minimal_chat_app/components/custom_search_field.dart';
+import 'package:minimal_chat_app/bloc/collection_type.dart';
+import 'package:minimal_chat_app/components/constants.dart';
+import 'package:minimal_chat_app/pages/main_page/search_user_page_view.dart';
 
 import '../../bloc/auth_bloc.dart';
-import '../../components/constants.dart';
 import '../../components/custom_app_bar.dart';
 import '../../components/custom_drawer.dart';
+import '../../components/custom_fab.dart';
 import '../../components/utils.dart';
 import '../settings_page.dart';
 
@@ -37,24 +40,25 @@ class _MainPageViewState extends State<MainPageView> {
             context.read<AuthBloc>().signOut();
           },
         ),
+        floatingActionButton: CustomFab(
+          onPress: () {
+            Navigator.of(context).push(
+              createRoute(
+                const SearchUserPageView(),
+              ),
+            );
+          },
+        ),
         body: Column(
           children: [
-            const CustomAppBar(),
+            const CustomAppBar(title: chatsText,),
             const SizedBox(
               height: 8,
             ),
-            CustomSearchField(
-                controller: searchController,
-                hintText: '$searchText $userText',
-                textInputType: TextInputType.text),
-            const SizedBox(
-              height: 8,
-            ),
-            ListView.builder(itemBuilder: (ctx, index) {
-              return Text('test');
-            }),
+
           ],
         )
+
         // StreamBuilder(
         //     stream: context.read<ChatBloc>().test(),
         //     builder: (ctx, snapshots) {

@@ -90,6 +90,7 @@ class _LoginOrRegPageState extends State<LoginOrRegPage> {
 
   void checkState(AuthState state, BuildContext context) {
     if (state is AuthError) {
+      Navigator.of(context).pop();
       showSnackBar(context, state.message);
     }
     if (state is AuthLoading) {

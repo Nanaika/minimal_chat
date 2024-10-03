@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/theme_bloc.dart';
-import 'constants.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     super.key,
+    required this.title, this.showActions = true,
   });
+
+  final String title;
+  final bool showActions;
 
   @override
   Widget build(BuildContext context) {
@@ -30,26 +33,26 @@ class CustomAppBar extends StatelessWidget {
               const SizedBox(
                 width: 12,
               ),
-              Text(
-                chatsText,
-                style: TextStyle(
-                    fontSize: 18, color: Theme.of(context).colorScheme.primary),
-              ),
               Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        context.read<ThemeBloc>().toggleTheme();
-                      },
-                      icon: Icon(
-                        Icons.add,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ],
+                child: Text(
+                  title,
+                  style: TextStyle(
+                      fontSize: 18, color: Theme.of(context).colorScheme.primary),
                 ),
+              ),
+              if(showActions) Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      context.read<ThemeBloc>().toggleTheme();
+                    },
+                    icon: Icon(
+                      CupertinoIcons.sun_min_fill,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ],
               ),
             ],
           )

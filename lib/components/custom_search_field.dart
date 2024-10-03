@@ -26,7 +26,7 @@ class CustomSearchField extends StatelessWidget {
           borderRadius: BorderRadius.circular(defBorderRadius),
           color: Theme.of(context).colorScheme.secondary),
       child: TextField(
-        onSubmitted: (text) {},
+        onSubmitted: onSubmitted,
         textInputAction: TextInputAction.search,
         keyboardType: textInputType,
         obscureText: isObscured,

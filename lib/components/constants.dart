@@ -30,7 +30,7 @@ const homeText = 'Home';
 const settingsText = 'Settings';
 const logOutText = 'Log out';
 const chatsText = 'Chats';
-const searchText = 'search';
+String searchText = 'search';
 const userText = 'user';
 
 

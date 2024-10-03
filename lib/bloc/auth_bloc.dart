@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_chat_app/bloc/collection_type.dart';
 import 'package:minimal_chat_app/bloc/model/user.dart';
+import 'package:minimal_chat_app/bloc/search_user_bloc.dart';
 import 'package:minimal_chat_app/components/constants.dart';
 
 class AuthBloc extends Cubit<AuthState> {
@@ -34,7 +35,11 @@ class AuthBloc extends Cubit<AuthState> {
       final credentials = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: pass);
       final user = ChatUser(credentials.user!.email!, credentials.user!.uid);
-      await _firebaseFirestore.collection(CollectionType.users.name).add(user.toJson());
+      final snapshot = await _firebaseFirestore.collection(CollectionType.users.name).doc(credentials.user!.uid).get(options);
+      if(!snapshot.exists) {
+        await _firebaseFirestore.collection(CollectionType.users.name).doc(credentials.user!.uid).set(user.toJson());
+      }
+
       emit(AuthSuccess());
     } on FirebaseAuthException catch (e) {
       emit(AuthError(message: e.message ?? noErrorMessageText));

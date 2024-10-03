@@ -9,21 +9,29 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     this.isObscured = false,
     required this.textInputType,
+    this.leftPadding = defaultPaddingH,
+    this.rightPadding = defaultPaddingH, this.minLines = 1, this.maxLines = 1,
   });
 
   final TextEditingController controller;
   final String hintText;
   final bool isObscured;
   final TextInputType textInputType;
+  final double leftPadding;
+  final double rightPadding;
+  final int minLines;
+  final int maxLines;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: defaultPaddingH),
+      margin: EdgeInsets.only(left: leftPadding, right: rightPadding),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(defBorderRadius),
           color: Theme.of(context).colorScheme.secondary),
       child: TextField(
+        minLines: minLines,
+        maxLines: maxLines,
         keyboardType: textInputType,
         obscureText: isObscured,
         controller: controller,

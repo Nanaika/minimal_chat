@@ -5,13 +5,15 @@ class ChatUser {
   ChatUser(this.email, this.uid);
 
   factory ChatUser.fromJson(Map<String, dynamic> json) {
-    return ChatUser(json['email'], json['uid']);
+    return ChatUser(json[UserFields.email.name], json[UserFields.uid.name]);
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'email': email,
-      'uid': uid,
+      UserFields.email.name: email,
+      UserFields.uid.name: uid,
     };
   }
 }
+
+enum UserFields { email, uid }
